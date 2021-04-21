@@ -1,7 +1,7 @@
 package mahonia
 
 // ConvertString converts a  string from UTF-8 to e's encoding.
-func (e Encoder) ConvertString(s string) string {
+func (e Encoder) ConvertString(s string) []byte {
 	dest := make([]byte, len(s)+10)
 	destPos := 0
 
@@ -24,13 +24,12 @@ func (e Encoder) ConvertString(s string) string {
 		destPos += size
 	}
 
-	return string(dest[:destPos])
+	return dest[:destPos]
 }
 
 // ConvertString converts a string from d's encoding to UTF-8.
-func (d Decoder) ConvertString(s string) string {
-	bytes := []byte(s)
-	runes := make([]rune, len(s))
+func (d Decoder) ConvertString(bytes []byte) string {
+	runes := make([]rune, len(bytes))
 	destPos := 0
 
 	for len(bytes) > 0 {
